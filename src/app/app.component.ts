@@ -14,9 +14,36 @@ export class AppComponent {
         name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5)])),
         email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)])),
         addresses: new FormArray([]),
+    });
+
+    // Pre-filling addresses of form
+    this.obj.addresses.forEach(() => {
+      this.addAddress();
     })
+    this.registerAddress.patchValue(this.obj);
   }
 
+  // Prefill the data (ex: when you are getting data from backend adn you need to pre-populate it on form fields.)
+  obj = {
+    name: 'Kiran Kumar K',
+    email: 'kichu@gmail.com',
+    addresses: [
+      {
+        id: 1,
+        cityName: 'city1',
+        stateName: 'state1',
+        streetName: 'street1',
+        landmark: 'landmark'
+      },
+      {
+        id: 2,
+        cityName: 'city2',
+        stateName: 'state2',
+        streetName: 'street2',
+        landmark: ''
+      }
+    ]
+  }
   
   public get addressesAsFormArray() : FormArray {
     return this.registerAddress.get('addresses') as FormArray;
