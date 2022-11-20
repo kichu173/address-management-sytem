@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,13 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent {
   registerAddress: FormGroup;
 
-  constructor() {
-    this.registerAddress = new FormGroup({
-        name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5)])),
-        email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)])),
-        addresses: new FormArray([]),
+  // formbuilder is an advantageous service where we can use instead of new keyword for every group as well as control, 
+  // we can have single instance of formbuilder injected to constructor and use it elsewhere.
+  constructor(private fb: FormBuilder) {
+    this.registerAddress = this.fb.group({
+        name: this.fb.control('', Validators.compose([Validators.required, Validators.minLength(5)])),
+        email: this.fb.control('', Validators.compose([Validators.required, Validators.pattern(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)])),
+        addresses: this.fb.array([]),
     });
 
     // Pre-filling addresses of form
@@ -60,12 +62,12 @@ export class AppComponent {
   }
 
   getAddressFormGroup(): FormGroup {
-    return new FormGroup({
-      id: new FormControl(this.addressesAsFormArray.controls.length + 1),
-      cityName: new FormControl('', Validators.compose([Validators.required])),
-      stateName: new FormControl('', Validators.compose([Validators.required])),
-      streetName: new FormControl('', Validators.compose([Validators.required])),
-      landmark: new FormControl('')
+    return this.fb.group({
+      id: this.fb.control(this.addressesAsFormArray.controls.length + 1),
+      cityName: this.fb.control('', Validators.compose([Validators.required])),
+      stateName: this.fb.control('', Validators.compose([Validators.required])),
+      streetName: this.fb.control('', Validators.compose([Validators.required])),
+      landmark: this.fb.control('')
     }) 
   }
 
