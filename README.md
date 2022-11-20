@@ -25,3 +25,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Best place to recollect knowledge on Angular reactive forms
+https://www.youtube.com/watch?v=NI0P9rSGuMA&list=PLmY2oBouT85Zv7MfGUdLdyKO4CietR_1X&index=19&ab_channel=Techshareskk
